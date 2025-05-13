@@ -15,7 +15,7 @@ public class DealershipFileManager {
 
     public Dealership getDealership() {
 
-        Dealership dealership;
+        Dealership dealership = null;
 
         try {
             FileReader fileReader = new FileReader("inventory.csv");
@@ -23,51 +23,42 @@ public class DealershipFileManager {
 
             String dataString;
 
+            //read dealership info from the first line
             if((dataString = reader.readLine()) != null) {
+                //parse the dealership line
                 String[] data = dataString.split(Pattern.quote("|"));
+
                 String name = data[0].trim();
                 String address = data[1].trim();
                 String phone = data[2].trim();
 
-//                dealership = getDealershipFromEncodedString(dataString);
+                dealership = new Dealership(name, address, phone);
             }
 
+            //read and add vehicles
             while ((dataString = reader.readLine()) != null) {
-                    Vehicle v = getVehicleFromLine(dataString);
-//                    dealership.addVehicle();
+                //parse the vehicle line
+                String[] vehicleData = dataString.split(Pattern.quote("|"));
+
+                int vin = Integer.parseInt(vehicleData[0]);
+                int year = Integer.parseInt(vehicleData[1]);
+                String make = vehicleData[2];
+                String model = vehicleData[3];
+                String vehicleType = vehicleData[4];
+                String color = vehicleData[5];
+                int odometer = Integer.parseInt(vehicleData[6]);
+                double price = Double.parseDouble(vehicleData[7]);
+
+                //create a new Vehicle object and add it to the dealership's inventory
+                Vehicle v = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
+                dealership.addVehicle(v);
             }
 
             } catch(IOException e){
                 throw new RuntimeException(e);
 
 
-        } return null;
-    }
-
-    public static Dealership getDealershipFromEncodedString(String encodedDealership) {
-
-        String[] temp = encodedDealership.split(Pattern.quote("|"));
-
-        String name = temp[0].trim();
-        String address = temp[1].trim();
-        String phone = temp[2].trim();
-
-        return new Dealership(name, address, phone);
-    }
-
-    public static Vehicle getVehicleFromLine(String encodedInventory){
-        String[] temp = encodedInventory.split(Pattern.quote("|"));
-
-        int vin = Integer.parseInt(temp[0]);
-        int year = Integer.parseInt(temp[1]);
-        String make = temp[3];
-        String model = temp[4];
-        String vehicleType = temp[5];
-        String color = temp[6];
-        int odometer = Integer.parseInt(temp[7]);
-        double price = Double.parseDouble(temp[8]);
-
-        return new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
+        } return dealership;
     }
 
     public void saveDealership(Dealership dealership) {
