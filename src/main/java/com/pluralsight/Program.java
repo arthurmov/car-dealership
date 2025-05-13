@@ -5,5 +5,8 @@ public class Program {
     //method and then creating the user interface and getting it started
     public static void main(String[] args) {
         System.out.println("Hello, World!");
+
+        UserInterface ui = new UserInterface();
+        ui.display();
     }
 }
