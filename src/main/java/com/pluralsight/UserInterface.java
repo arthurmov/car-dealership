@@ -39,7 +39,7 @@ public class UserInterface {
             // Loop to keep the menu running
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Welcome to " + dealership.getName());
+            System.out.println("\nWelcome to " + dealership.getName());
             System.out.println("1. Find vehicles within a price range");
             System.out.println("2. Find vehicles by make and model");
             System.out.println("3. Find vehicles by year");
@@ -98,11 +98,19 @@ public class UserInterface {
         if (vehicles.isEmpty()) {
             System.out.println("No vehicles found.");
         } else {
-            for (Vehicle vehicle : vehicles) {
-                System.out.println(vehicle);
+            for (Vehicle v : vehicles) {
+                System.out.println("VIN: " + v.getVin() +
+                        ", Year: " + v.getYear() +
+                        ", Make: " + v.getMake() +
+                        ", Model: " + v.getModel() +
+                        ", Type: " + v.getVehicleType() +
+                        ", Color: " + v.getColor() +
+                        ", Odometer: " + v.getOdometer() + " miles" +
+                        ", Price: $" + String.format("%.2f", v.getPrice()));
             }
         }
     }
+
 
     public void processGetByPriceRequest() {
         Scanner scanner = new Scanner(System.in);
