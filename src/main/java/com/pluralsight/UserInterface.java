@@ -49,6 +49,7 @@ public class UserInterface {
             System.out.println("7. List ALL vehicles");
             System.out.println("8. Add a vehicle");
             System.out.println("9. Remove a vehicle");
+            System.out.println("10. Sell/Lease a vehicle");
             System.out.println("99. Quit");
             System.out.print("Enter your choice: ");
 
