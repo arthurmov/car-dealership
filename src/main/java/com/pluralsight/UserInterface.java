@@ -40,16 +40,16 @@ public class UserInterface {
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Welcome to " + dealership.getName());
-            System.out.println("1. Get vehicles by price");
-            System.out.println("2. Get vehicles by make and model");
-            System.out.println("3. Get vehicles by year");
-            System.out.println("4. Get vehicles by color");
-            System.out.println("5. Get vehicles by mileage");
-            System.out.println("6. Get vehicles by type");
-            System.out.println("7. View all vehicles");
-            System.out.println("8. Add vehicle");
-            System.out.println("9. Remove vehicle");
-            System.out.println("0. Exit");
+            System.out.println("1. Find vehicles within a price range");
+            System.out.println("2. Find vehicles by make and model");
+            System.out.println("3. Find vehicles by year");
+            System.out.println("4. Find vehicles by color");
+            System.out.println("5. Find vehicles by mileage");
+            System.out.println("6. Find vehicles by type (car, truck, SUV, van)");
+            System.out.println("7. List ALL vehicles");
+            System.out.println("8. Add a vehicle");
+            System.out.println("9. Remove a vehicle");
+            System.out.println("99. Quit");
             System.out.print("Enter your choice: ");
 
             // Read user's command
@@ -84,7 +84,7 @@ public class UserInterface {
                 case 9:
                     processRemoveVehicleRequest();
                     break;
-                case 0:
+                case 99:
                     System.out.println("Exiting...");
                     return; // Exit the loop and end the program
                 default:
