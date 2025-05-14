@@ -11,8 +11,6 @@ public class DealershipFileManager {
     //file. It will also be responsible for saving a dealership and the vehicles back
     //into the file in the same pipe-delimited format
 
-
-
     public Dealership getDealership() {
 
         Dealership dealership = null;

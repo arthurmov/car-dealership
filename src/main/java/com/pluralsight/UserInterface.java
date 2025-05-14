@@ -20,7 +20,7 @@ public class UserInterface {
         // Initialize the dealership
         init();
 
-        // Display the menu
+        // display the menu
         displayMenu();
     }
 
