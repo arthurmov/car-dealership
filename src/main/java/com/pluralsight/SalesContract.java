@@ -39,6 +39,7 @@ public class SalesContract extends Contract {
     }
 
     public int getProcessingFee() {
+
         return processingFee;
     }
 
@@ -59,12 +60,32 @@ public class SalesContract extends Contract {
         if(getVehicleSold().getPrice() < 10000) {
             processingFee = 295;
         } else processingFee = 495;
-        return processingFee;
+
+        return getVehicleSold().getPrice() + this.salesTax + this.recordingFee +this.processingFee;
     }
 
     @Override
     public double getMonthlyPayment() {
+        if (isFinance) {
+            double price = getVehicleSold().getPrice();
+            double interestRate;
+            double annualInterestRate;
+            double numMonthlyPayments;
+            double monthlyInterestRate;
 
+            if (price >= 10000) {
+                interestRate = 0.0425;
+                numMonthlyPayments = 48;
+            } else {
+                interestRate = 0.0525;
+                numMonthlyPayments = 24;
+            }
+
+            monthlyInterestRate = interestRate / 12;
+
+            return price * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numMonthlyPayments)) / (Math.pow(1 + monthlyInterestRate, numMonthlyPayments) - 1);
+        }
         return 0;
     }
+
 }

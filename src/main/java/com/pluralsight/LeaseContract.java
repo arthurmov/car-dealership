@@ -43,6 +43,11 @@ public class LeaseContract extends Contract {
 
     @Override
     public double getMonthlyPayment() {
-        return 0;
+            double price = getVehicleSold().getPrice();
+            double interestRate = 0.04;
+            double numMonthlyPayments = 36;
+            double monthlyInterestRate = interestRate / 12;
+
+            return price * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numMonthlyPayments)) / (Math.pow(1 + monthlyInterestRate, numMonthlyPayments) - 1);
     }
 }
