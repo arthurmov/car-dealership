@@ -87,7 +87,7 @@ public class UserInterface {
                     break;
                 case 99:
                     System.out.println("Exiting...");
-                    return; // Exit the loop and end the program
+                    return; //exit the loop and end the program
                 default:
                     System.out.println("Invalid command, please try again.");
             }
@@ -100,14 +100,7 @@ public class UserInterface {
             System.out.println("No vehicles found.");
         } else {
             for (Vehicle v : vehicles) {
-                System.out.println("VIN: " + v.getVin() +
-                        ", Year: " + v.getYear() +
-                        ", Make: " + v.getMake() +
-                        ", Model: " + v.getModel() +
-                        ", Type: " + v.getVehicleType() +
-                        ", Color: " + v.getColor() +
-                        ", Odometer: " + v.getOdometer() + " miles" +
-                        ", Price: $" + String.format("%.2f", v.getPrice()));
+                System.out.println(v.toString());
             }
         }
     }
