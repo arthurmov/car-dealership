@@ -17,18 +17,18 @@ public class UserInterface {
     }
 
     public void display() {
-        // Initialize the dealership
+        //initialize the dealership
         init();
 
-        // display the menu
+        //display the menu
         displayMenu();
     }
 
     private void init() {
-        // Initialize DealershipFileManager
-        DealershipFileManager manager = new DealershipFileManager();
-        // Get the dealership object by calling getDealership method
-        this.dealership = manager.getDealership();
+        //initialize DealershipFileManager
+        DealershipFileManager fileManager = new DealershipFileManager();
+        //get the dealership object by calling getDealership method
+        this.dealership = fileManager.getDealership();
     }
 
     private void displayMenu() {
@@ -36,7 +36,7 @@ public class UserInterface {
         while (true) {
 
 
-            // Loop to keep the menu running
+            //loop to keep the menu running
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("\nWelcome to " + dealership.getName());
@@ -53,10 +53,10 @@ public class UserInterface {
             System.out.println("99. Quit");
             System.out.print("Enter your choice: ");
 
-            // Read user's command
+            //read user input
             int command = scanner.nextInt();
 
-            // Process the user's request based on their command
+            //process the user's request based on their command
             switch (command) {
                 case 1:
                     processGetByPriceRequest();
@@ -220,17 +220,17 @@ public class UserInterface {
         System.out.print("Enter VIN of the vehicle to remove: ");
         int vin = scanner.nextInt();
 
-        // Search for the vehicle in the dealership's inventory
+        //search for the vehicle in the dealership's inventory
         Vehicle vehicleToRemove = null;
         for (Vehicle vehicle : dealership.getAllVehicles()) {
             if (vehicle.getVin() == vin) {
                 vehicleToRemove = vehicle;
-                break; // Exit the loop once the vehicle is found
+                break; //exit the loop once the vehicle is found
             }
         }
 
         if (vehicleToRemove != null) {
-            dealership.removeVehicle(vehicleToRemove);  // Remove the vehicle from the dealership
+            dealership.removeVehicle(vehicleToRemove);  //remove the vehicle from the dealership
             System.out.println("Vehicle removed successfully.");
         } else {
             System.out.println("Vehicle not found.");
