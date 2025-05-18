@@ -20,7 +20,7 @@ public class DealershipFileManager {
             String dataString;
 
             //read dealership info from the first line
-            if((dataString = reader.readLine()) != null) {
+            if ((dataString = reader.readLine()) != null) {
                 //parse the dealership line
                 String[] data = dataString.split(Pattern.quote("|"));
 
@@ -33,28 +33,29 @@ public class DealershipFileManager {
 
             //read and add vehicles
             while ((dataString = reader.readLine()) != null) {
-                //parse the vehicle line
-                String[] vehicleData = dataString.split(Pattern.quote("|"));
+                if (dataString.trim().isEmpty()) continue;
 
-                int vin = Integer.parseInt(vehicleData[0]);
-                int year = Integer.parseInt(vehicleData[1]);
-                String make = vehicleData[2];
-                String model = vehicleData[3];
-                String vehicleType = vehicleData[4];
-                String color = vehicleData[5];
-                int odometer = Integer.parseInt(vehicleData[6]);
-                double price = Double.parseDouble(vehicleData[7]);
+                String[] parts = dataString.split(",");
 
-                //create a new Vehicle object and add it to the dealership's inventory
-                Vehicle v = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
-                dealership.addVehicle(v);
+                int vin = Integer.parseInt(parts[0].split(":")[1].trim());
+                int year = Integer.parseInt(parts[1].split(":")[1].trim());
+                String make = parts[2].split(":")[1].trim();
+                String model = parts[3].split(":")[1].trim();
+                String type = parts[4].split(":")[1].trim();
+                String color = parts[5].split(":")[1].trim();
+                int odometer = Integer.parseInt(parts[6].split(":")[1].trim());
+                double price = Double.parseDouble(parts[7].split(":")[1].trim());
+
+                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, odometer, price);
+                dealership.addVehicle(vehicle);
             }
 
-            } catch(IOException e){
-                throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
 
 
-        } return dealership;
+        }
+        return dealership;
     }
 
     public static void saveDealership(Dealership dealership) {
@@ -63,14 +64,21 @@ public class DealershipFileManager {
             writer.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
             writer.newLine();
 
-            // Write each vehicle using toString
+            // Write each vehicle in readable format
             for (Vehicle v : dealership.getAllVehicles()) {
-                writer.write(v.toString());
+                String vehicleLine = "VIN: " + v.getVin() +
+                        ", Year: " + v.getYear() +
+                        ", Make: " + v.getMake() +
+                        ", Model: " + v.getModel() +
+                        ", Type: " + v.getVehicleType() +
+                        ", Color: " + v.getColor() +
+                        ", Odometer: " + v.getOdometer() +
+                        ", Price: " + v.getPrice();
+                writer.write(vehicleLine);
                 writer.newLine();
             }
-
         } catch (IOException e) {
-            throw new RuntimeException("Error saving dealership data", e);
+            throw new RuntimeException("Error saving dealership inventory.", e);
         }
     }
 }

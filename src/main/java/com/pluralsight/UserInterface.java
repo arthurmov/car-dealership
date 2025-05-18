@@ -120,7 +120,7 @@ public class UserInterface {
         String name = scanner.nextLine();
         System.out.print("Customer Email: ");
         String email = scanner.nextLine();
-        System.out.print("Contract Date (YYYYMMDD): ");
+        System.out.print("Contract Date (YYYY-MM-DD): ");
         String date = scanner.nextLine();
 
         System.out.print("Is this a Sale or Lease? (sale/lease): ");
@@ -259,6 +259,9 @@ public class UserInterface {
 
         Vehicle newVehicle = new Vehicle(vin, year, make, model, type, color, odometer, price);
         dealership.addVehicle(newVehicle);
+
+        DealershipFileManager.saveDealership(dealership);
+
         System.out.println("Vehicle added successfully.");
     }
 
