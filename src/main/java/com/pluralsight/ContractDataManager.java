@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class ContractDataManager {
 
-    public void saveContract(Contract contract) {
+    public static void saveContract(Contract contract) {
         try (FileWriter writer = new FileWriter("contracts.csv", true)) {
             String contractData;
 
@@ -28,7 +28,7 @@ public class ContractDataManager {
                         sale.getRecordingFee(),
                         sale.getProcessingFee(),
                         sale.getTotalPrice(),
-                        sale.isFinance(),
+                        sale.isFinance() ? "YES" : "NO",
                         sale.getMonthlyPayment()
                 );
 
@@ -53,8 +53,6 @@ public class ContractDataManager {
 
                 writer.write(contractData);
             }
-
-
 
         } catch (IOException e) {
             System.out.println("Failed to write contract: " + e.getMessage());
